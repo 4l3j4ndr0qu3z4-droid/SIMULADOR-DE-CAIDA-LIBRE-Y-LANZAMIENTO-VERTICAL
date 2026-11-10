@@ -35,26 +35,80 @@ public class Upwards extends Downwards implements InterfaceUpward {
 
     @Override
     public Float torricelli(Upward upward) {
+        boolean haveVf = upward.getFinalVelocity() != null;
+        boolean haveH_Ho = upward.getHeight() != null || upward.getInitialHeight() != null;
+        boolean haveVo = upward.getInitialVelocity() != null;
+        boolean haveG = upward.getGravity() != null && upward.getGravity().getPlanets() != null;
+
         Float result = 0.0f;
+        TorricelliFormulas torricelli = new TorricelliFormulas();
+
+        if (!haveVf) {
+            result = torricelli.calculateFinalVelocity(upward);
+        } else if (!haveH_Ho) {
+            result = torricelli.calculateHeight(upward);
+        } else if (!haveVo) {
+            result = torricelli.calculateInitialVelocity(upward);
+        } else if (!haveG) {
+            result = torricelli.calculateGravity(upward);
+        }
         return result;
     }
 
     @Override
     public Float generalEquation(Upward upward) {
+        boolean haveT = upward.getTime() != null && upward.getTime() > 0;
+        boolean haveH = upward.getHeight() != null && upward.getHeight() >= 0;
+        boolean haveHo = upward.getInitialHeight() != null && upward.getInitialHeight() >= 0;
+        boolean haveVo = upward.getInitialVelocity() != null && upward.getInitialVelocity() >= 0;
+        boolean haveG = upward.getGravity() != null && upward.getGravity().getPlanets() != null && upward.getGravity().getPlanets() > 0;
         Float result = 0.0f;
+        GeneralFormulas general = new GeneralFormulas();
+
+        if (haveT == false) {
+            result = general.calculateTime(upward);
+        } else if (haveH == false) {
+            result = general.calculateHeight(upward);
+        } else if (haveHo == false) {
+            result = general.calculateInitialHeight(upward);
+        } else if (haveVo == false) {
+            result = general.calculateInitialVelocity(upward);
+        } else if (haveG == false) {
+            result = general.calculateGravity(upward);
+        }
         return result;
     }
 
     @Override
     public Float mathEquation(Upward upward) {
+        boolean haveT = upward.getTime() != null && upward.getTime() > 0;
+        boolean haveVf = upward.getFinalVelocity() != null && upward.getFinalVelocity() > 0;
+        boolean haveVo = upward.getInitialVelocity() != null && upward.getInitialVelocity() >= 0;
+        boolean haveG = upward.getGravity() != null && upward.getGravity().getPlanets() != null && upward.getGravity().getPlanets() > 0;
+
         Float result = 0.0f;
+
+        MathematicalFormulas math = new MathematicalFormulas();
+
+        if (haveT == false) {
+            result = math.calculateTime(upward);
+        }
+        if (haveVo == false) {
+            result = math.calculateInitialVelocity(upward);
+        }
+        if (haveVf == false) {
+            result = math.calculateFinalVelocity(upward);
+        }
+
+        if (haveG == false) {
+            result = math.calculateGravity(upward);
+        }
         return result;
     }
 
     @Override
     public Float averageVelocity(Upward upward) {
-        Float result = 0.0f;
-        return result;
+        return  super.averageVelocity(upward);
     }
 
     @Override
