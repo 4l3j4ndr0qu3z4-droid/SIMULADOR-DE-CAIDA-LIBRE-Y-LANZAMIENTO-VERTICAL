@@ -44,7 +44,8 @@ public class Downwards implements InterfaceDownward {
     @Override
     public Float torricelli(Downward downward) {
         boolean haveVf = downward.getFinalVelocity() != null;
-        boolean haveH_Ho = downward.getHeight() != null || downward.getInitialHeight() != null;
+        boolean haveH = downward.getHeight() != null;
+        boolean haveHo = downward.getInitialHeight() != null;
         boolean haveVo = downward.getInitialVelocity() != null;
         boolean haveG = downward.getGravity() != null && downward.getGravity().getPlanets() != null;
 
@@ -53,13 +54,16 @@ public class Downwards implements InterfaceDownward {
 
         if (!haveVf) {
             result = torricelli.calculateFinalVelocity(downward);
-        } else if (!haveH_Ho) {
+        } else if (!haveH) {
             result = torricelli.calculateHeight(downward);
+        } else if (!haveHo) {
+            result = torricelli.calculateInitialHeight(downward);
         } else if (!haveVo) {
             result = torricelli.calculateInitialVelocity(downward);
         } else if (!haveG) {
             result = torricelli.calculateGravity(downward);
         }
+
         return result;
     }
 

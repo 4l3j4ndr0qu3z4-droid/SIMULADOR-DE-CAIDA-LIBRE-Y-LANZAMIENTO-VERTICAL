@@ -32,5 +32,13 @@ public class LaunchSimulator {
         downTwo.setInitialHeight(0.0f);
         InterfaceDownward InterfaceDownTwo = new Downwards();
         System.out.println(InterfaceDownTwo.searchFormule(downTwo));
+        
+        Downward downThree = new Downward();
+        downThree.setGravity(Gravity.EARTH);
+        downThree.setInitialVelocity(200.0f);
+        downThree.setFinalVelocity(317.6f);
+        downThree.setInitialHeight(0.0f);
+        InterfaceDownward InterfacedownThree = new Downwards();
+        System.out.println(InterfacedownThree.searchFormule(downThree));
     }
 }
