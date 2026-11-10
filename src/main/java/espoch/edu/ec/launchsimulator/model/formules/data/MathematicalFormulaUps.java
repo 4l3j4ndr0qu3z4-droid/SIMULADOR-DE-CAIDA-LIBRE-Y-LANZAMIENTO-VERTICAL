@@ -4,16 +4,16 @@ import espoch.edu.ec.launchsimulator.model.formules.data.MathematicalFormulas;
 import espoch.edu.ec.launchsimulator.model.formules.objects.Upward;
 
 
-public class MathematicalFormulaUps extends MathematicalFormulas {
+public class MathematicalFormulaUps extends MathematicalFormulas{
 
     public Float calculateFinalVelocity(Upward upward) {
-        Float result = null;
+        Float result = 0.0f;
 
         Float g = upward.getGravity().getPlanets();
         Float t = upward.getTime();
-        Float Vo = upward.getInitialVelocity();
+        Float Vo = upward.getInitialVelocity(); 
 
-        result = Vo - (g * t);
+        result = (Vo - (g * t));
         System.out.println("Vf = Vo - gt");
         return result;
     }

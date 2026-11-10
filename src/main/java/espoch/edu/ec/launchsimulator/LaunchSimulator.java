@@ -20,11 +20,17 @@ public class LaunchSimulator {
     public static void main(String[] args) {
         Downward downOne = new Downward();
         downOne.setGravity(Gravity.EARTH);
-        downOne.setHeight(0.0f);
-        downOne.setInitialVelocity(15.0f);
-        downOne.setInitialHeight(100.0f);
+        downOne.setTime(12.0f);
+        downOne.setInitialVelocity(200.0f);
         InterfaceDownward InterfaceDownOne = new Downwards();
         System.out.println(InterfaceDownOne.searchFormule(downOne));
-    
+
+        Upward  upOne = new Upward();
+        upOne.setGravity(Gravity.EARTH);
+        upOne.setTime(12.0f);
+        upOne.setInitialVelocity(200.0f);
+        InterfaceUpward InterfaceUpOne = new Upwards();
+        System.out.println(InterfaceUpOne.searchFormule(upOne));
+
     }
 }

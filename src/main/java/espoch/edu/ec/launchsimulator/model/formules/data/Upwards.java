@@ -41,7 +41,7 @@ public class Upwards extends Downwards implements InterfaceUpward {
         boolean haveG = upward.getGravity() != null && upward.getGravity().getPlanets() != null;
 
         Float result = 0.0f;
-        TorricelliFormulas torricelli = new TorricelliFormulas();
+        TorricelliFormulaUps torricelli = new TorricelliFormulaUps();
 
         if (!haveVf) {
             result = torricelli.calculateFinalVelocity(upward);
@@ -63,7 +63,7 @@ public class Upwards extends Downwards implements InterfaceUpward {
         boolean haveVo = upward.getInitialVelocity() != null && upward.getInitialVelocity() >= 0;
         boolean haveG = upward.getGravity() != null && upward.getGravity().getPlanets() != null && upward.getGravity().getPlanets() > 0;
         Float result = 0.0f;
-        GeneralFormulas general = new GeneralFormulas();
+        GeneralFormulaUps general = new GeneralFormulaUps();
 
         if (haveT == false) {
             result = general.calculateTime(upward);
@@ -88,7 +88,7 @@ public class Upwards extends Downwards implements InterfaceUpward {
 
         Float result = 0.0f;
 
-        MathematicalFormulas math = new MathematicalFormulas();
+        MathematicalFormulaUps math = new MathematicalFormulaUps();
 
         if (haveT == false) {
             result = math.calculateTime(upward);
