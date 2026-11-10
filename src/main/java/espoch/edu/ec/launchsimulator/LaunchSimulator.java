@@ -25,12 +25,12 @@ public class LaunchSimulator {
         InterfaceDownward InterfaceDownOne = new Downwards();
         System.out.println(InterfaceDownOne.searchFormule(downOne));
 
-        Upward  upOne = new Upward();
-        upOne.setGravity(Gravity.EARTH);
-        upOne.setTime(12.0f);
-        upOne.setInitialVelocity(200.0f);
-        InterfaceUpward InterfaceUpOne = new Upwards();
-        System.out.println(InterfaceUpOne.searchFormule(upOne));
-
+        Downward downTwo = new Downward();
+        downTwo.setGravity(Gravity.EARTH);
+        downTwo.setTime(12.0f);
+        downTwo.setInitialVelocity(200.0f);
+        downTwo.setInitialHeight(0.0f);
+        InterfaceDownward InterfaceDownTwo = new Downwards();
+        System.out.println(InterfaceDownTwo.searchFormule(downTwo));
     }
 }

@@ -3,7 +3,6 @@ package espoch.edu.ec.launchsimulator.model.formules.data;
 import espoch.edu.ec.launchsimulator.model.formules.access.InterfaceDownward;
 import espoch.edu.ec.launchsimulator.model.formules.objects.Downward;
 
-
 public class Downwards implements InterfaceDownward {
 
     @Override
@@ -18,25 +17,24 @@ public class Downwards implements InterfaceDownward {
         boolean haveT = downward.getTime() != null;
         boolean haveVf = downward.getFinalVelocity() != null;
         boolean haveH_Ho = downward.getHeight() != null || downward.getInitialHeight() != null;
-        boolean haveG = downward.getGravity() != null &&  downward.getGravity().getPlanets() != null;
+        boolean haveG = downward.getGravity() != null && downward.getGravity().getPlanets() != null;
+        boolean HaveVo = downward.getInitialVelocity() != null;
         Float result = 0.0f;
 
-        if (!haveH_Ho) {
-            // Caso 1 sin altura
-            // formula Vf = Vo + gt
+        if (!haveVf && HaveVo && haveT && haveG && (!haveH_Ho)) {
             result = mathEquation(downward);
-        } else if (!haveVf) {
-            // Caso 2 sin velocidad final
-            // formula h = ho + Vo t + (g*t*t)/2
+        } // Caso 2: Si falta la altura (H o Ho), pero tenemos Vo, T y G -> Fórmula General (h = ho + Vo*t + 0.5*g*t^2)
+        else if ((!haveH_Ho) && HaveVo && haveT && haveG) {
             result = generalEquation(downward);
-        } else if (!haveT) {
-            //Caso 3 sin tiempo
-            //  Vf2 = Vo2 + 2gh
+        } // Caso 3: Si falta el tiempo (T), pero tenemos velocidades y altura -> Torricelli
+        else if (!haveT && (haveH_Ho) && HaveVo && haveVf) {
             result = torricelli(downward);
-        } else if (!haveG) {
-            // caso 4 sin gravedad
-            // h = ((Vf + Vo)/2 ) * t
+        } // Caso 4: Si falta la gravedad (G) -> Velocidad Media
+        else if (!haveG) {
             result = averageVelocity(downward);
+        } else {
+            // Fallback por defecto si ninguna condición estricta coincide
+            result = generalEquation(downward);
         }
         return result;
     }
@@ -126,12 +124,12 @@ public class Downwards implements InterfaceDownward {
     // h = ((Vf + Vo)/2 ) * t
     @Override
     public Float averageVelocity(Downward downward) {
-        
+
         boolean haveT = downward.getTime() != null && downward.getTime() > 0;
         boolean haveVf = downward.getFinalVelocity() != null && downward.getFinalVelocity() > 0;
         boolean haveH = downward.getHeight() != null && downward.getHeight() > 0;
         boolean haveVo = downward.getInitialVelocity() != null && downward.getInitialVelocity() >= 0;
-        
+
         Float result = 0.0f;
         AverageVelocityFormulas average = new AverageVelocityFormulas();
 
